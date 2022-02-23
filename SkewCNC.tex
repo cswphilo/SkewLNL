@@ -1,0 +1,234 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{prftree}
+\usepackage{ntheorem}
+\usepackage{tikz-cd}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{graphicx}
+%\usepackage{quiver}
+\usepackage[all,cmtip]{xy}
+\usepackage{proof}
+%\usepackage{bussproofs}
+%\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage{lscape}
+\theorembodyfont{}
+\newtheorem{theorem}{Theorem}[subsection]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{defn}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem*{proof}{Proof : }
+\newtheorem{fact}[theorem]{Fact}
+\newcommand{\ldbc}{[\![}
+\newcommand{\rdbc}{]\!]}
+\newcommand{\tbar}{[\vec{x}/\vec{t}]}
+\newcommand{\ltbar}{[\vec{x}, x/\vec{t}, x]}
+%%skew calculus macros
+\newcommand{\tl}{\otimes \mathsf{L}}
+\newcommand{\tr}{\otimes \mathsf{R}}
+\newcommand{\lright}{\multimap \mathsf{R}}
+\newcommand{\lleft}{\multimap \mathsf{L}}
+\newcommand{\pass}{\mathsf{pass}}
+\newcommand{\unitl}{\mathsf{IL}}
+\newcommand{\unitr}{\mathsf{IR}}
+\newcommand{\ax}{\mathsf{ax}}
+\newcommand{\ot}{\otimes}
+\newcommand{\lolli}{\multimap}
+\newcommand{\I}{\mathsf{I}}
+\newcommand{\msfL}{\mathsf{L}}
+\newcommand{\fl}{\mathsf{FL}}
+\newcommand{\gl}{\mathsf{GL}}
+\newcommand{\gr}{\mathsf{GR}}
+\newcommand{\fr}{\mathsf{FR}}
+\newcommand{\td}{\text{-}}
+\newcommand{\scut}{\mathsf{scut}}
+\newcommand{\ccut}{\mathsf{ccut}}
+%%skew calculus macros
+%%intuitionistic macros
+\newcommand{\oner}{1\mathsf{R}}
+\newcommand{\tms}{\times}
+\newcommand{\tmsr}{\times \mathsf{R}}
+\newcommand{\tmslf}{\times \mathsf{L}_{1}}
+\newcommand{\tmsls}{\times \mathsf{L}_{2}}
+\newcommand{\rar}{\rightarrow}
+\newcommand{\rarr}{\rightarrow \mathsf{R}}
+\newcommand{\rarl}{\rightarrow \mathsf{L}}
+\newcommand{\wk}{\mathsf{wk}}
+\newcommand{\ctr}{\mathsf{ctr}}
+\newcommand{\ex}{\mathsf{ex}}
+%%intuitionistic macros
+\begin{document}
+\section*{Skew CNC}
+Formulae and Contexts in Skew CNC:
+\begin{itemize}
+  \item Skew symmetric part: $X \mid \I \mid X \ot Y \mid X \lolli Y \mid GA $, contexts $\Phi$.
+  \item Skew part: $A \mid \I \mid A \ot B \mid A \lolli B \mid FX$, contexts $\Gamma$ ($\Gamma$ is a mixed context containing symmetric and non-symmetirc formulae).
+  \item $S_{s}$ denotes a stoup which either is empty or a skew symmetric formula.
+  \item $S$ denotes a stoup which is empty, a skew formula, or a skew symmetric formula.
+\end{itemize}
+Sequent calculus for skew symmetric monoidal closed
+\vspace{-0.15cm}
+ \begin{displaymath}
+ \begin{array}{cc}
+   \infer[s\text{-}\ax]{X \mid \quad \vdash_{s} X}{}
+   \qquad
+   \infer[s\text{-}\unitr]{- \mid \quad \vdash_{s} \I}{}
+   \qquad
+   \infer[s\text{-}\unitl]{\I \mid \Phi \vdash_{s} Z}{- \mid \Phi \vdash_{s} Z}
+   \qquad
+   \infer[s\text{-}\tl]{X \ot Y \mid \Phi \vdash_{s} C}{X \mid Y , \Phi \vdash_{s} C}
+   \\
+   \infer[s\td\pass]{- \mid X, \Phi \vdash_{s} Z}{X \mid \Phi \vdash_{s} Z}
+   \qquad
+   \infer[s\text{-}\tr]{S_{s} \mid \Phi_{0} , \Phi_{1} \vdash_{s} X \ot Y}{
+    \deduce{S_{s} \mid \Phi_{0} \vdash_{s} X}{}
+    \qquad
+    \deduce{- \mid \Phi_{1} \vdash_{s} Y}{}
+   }
+   \qquad
+   \infer[s\text{-}\lright]{S_{s} \mid \Phi \vdash_{s} X \lolli Y}{S_{s} \mid \Phi , X \vdash_{s} Y}
+   \\
+   \infer[s\text{-}\lleft]{X \lolli Y \mid \Phi_{0} , \Phi_{1} \vdash_{s} Z}{
+    \deduce{- \mid \Phi_{0} \vdash_{s} X}{}
+    \qquad
+    \deduce{Y \mid \Phi_{1} \vdash_{s} Z}{}
+   }
+ \end{array}
+ \end{displaymath}
+ Structural and adjunction rules
+ \begin{displaymath}
+   \begin{array}{cc}
+     \infer[s\text{-}\ex]{S_{s} \mid \Phi_{0} , Y , X , \Phi_{1} \vdash_{s} Z}{S_{s} \mid \Phi_{0} , X , Y , \Phi_{1} \vdash_{s} Z}
+     \qquad
+     \infer[\fr]{S_{s} \mid \Phi \vdash_{sk} FX}{S_{s} \mid \Phi \vdash_{s} X}
+   \end{array}
+ \end{displaymath}
+ Ordinary rule for skew monoidal closed calculus
+ \begin{displaymath}
+   \begin{array}{cc}
+     \infer[sk\text{-}\ax]{A \mid \quad \vdash_{sk} A}{}
+     \qquad
+     \infer[sk\text{-}\unitr]{- \mid \quad \vdash_{sk} \I}{}
+     \qquad
+     \infer[sk\text{-}\unitl]{\I \mid \Gamma \vdash_{sk} C}{- \mid \Gamma \vdash_{sk} C}
+     \qquad
+     \infer[sk\text{-}\tl]{A \ot B \mid \Gamma \vdash_{sk} C}{A \mid B , \Gamma \vdash_{sk} C}
+     \\
+     \infer[sk\td\pass]{- \mid A, \Gamma \vdash_{sk} C}{A \mid \Gamma \vdash_{sk} C}
+     \qquad
+     \infer[sk\text{-}\tr]{S \mid \Gamma_{0} , \Gamma_{1} \vdash_{sk} A \ot B}{
+      \deduce{S \mid \Gamma_{0} \vdash_{sk} A}{}
+      \qquad
+      \deduce{- \mid \Gamma_{1} \vdash_{sk} B}{}
+     }
+     \qquad
+     \infer[sk\text{-}\lright]{S \mid \Gamma \vdash_{sk} A \lolli B}{S \mid \Gamma , A \vdash_{sk} B}
+     \\
+     \infer[sk\text{-}\lleft]{A \lolli B \mid \Gamma_{0} , \Gamma_{1} \vdash_{sk} C}{
+      \deduce{- \mid \Gamma_{0} \vdash_{sk} A}{}
+      \qquad
+      \deduce{B \mid \Gamma_{1} \vdash_{sk} C}{}
+     }
+   \end{array}
+ \end{displaymath}
+ Skew symmetric rules in skew monoidal closed calculus
+     \begin{displaymath}
+       \begin{array}{cc}
+         \infer[s\text{-}sk\text{-}\tl]{X \ot Y \mid \Gamma \vdash_{sk} C}{X \mid Y , \Gamma \vdash_{sk} C}
+         \qquad
+         \infer[s\text{-}sk\text{-}\lleft]{X \lolli Y \mid \Phi , \Gamma \vdash_{sk} C}{
+          \deduce{- \mid \Phi \vdash_{s} X}{}
+          &
+          \deduce{Y \mid \Gamma \vdash_{sk} C}{}
+         }
+         \qquad
+         \infer[sk\text{-}\ex]{S \mid \Gamma_{0} , Y , X , \Gamma_{1} \vdash_{sk} C}{S \mid \Gamma_{0} , X , Y , \Gamma_{1} \vdash_{sk} C}
+       \end{array}
+     \end{displaymath}
+  Adjunction rules
+  \begin{displaymath}
+    \begin{array}{cc}
+      \infer[\gl_{stp}]{GA \mid \Gamma \vdash_{sk} C}{A \mid \Gamma \vdash_{sk} C}
+      \qquad
+      \infer[\fl_{stp}]{FX \mid \Gamma \vdash_{sk} C}{X \mid \Gamma \vdash_{sk} C}
+      \qquad
+      \infer[\gr]{S_{s} \mid \Phi \vdash_{s} GA}{S_{s} \mid \Phi \vdash_{sk} A}
+      %\qquad
+      % \infer[\gl_{c}]{S \mid \Gamma_{0} , GA , \Gamma_{1} \vdash_{sk} C}{S \mid \Gamma_{0} , A , \Gamma_{1} \vdash_{sk} C}
+      % \qquad
+      % \infer[\fl_{c}]{S \mid \Gamma_{0} , FX , \Gamma_{1} \vdash_{sk} C}{S \mid \Gamma_{0} , X , \Gamma_{1} \vdash_{sk} C}
+      % \qquad
+    \end{array}
+  \end{displaymath}
+
+ Admissible cut rules:
+ \begin{displaymath}
+   \begin{array}{cc}
+     \infer[s\td\scut]{S_{s} \mid \Phi_{0} , \Phi_{1} \vdash_{s} Z}{
+      \deduce{S_{s} \mid \Phi_{0} \vdash_{s} X}{}
+      &
+      \deduce{X \mid \Phi_{1} \vdash_{s} Z}{}
+     }
+     \qquad
+     \infer[s\td\ccut]{S_{s} \mid \Phi_{0} , \Phi_{1} , \Phi_{2} \vdash_{s} Z}{
+      \deduce{- \mid \Phi_{1} \vdash_{s} X}{}
+      &
+      \deduce{S_{s} \mid \Phi_{0} , X , \Phi_{1} \vdash_{s} Z}{}
+      }
+      \\
+      \infer[sk\td\scut]{S \mid \Gamma_{0} , \Gamma_{1} \vdash_{sk} C}{
+       \deduce{S \mid \Gamma_{0} \vdash_{sk} A}{}
+       &
+       \deduce{A \mid \Gamma_{1} \vdash_{sk} C}{}
+      }
+      \qquad
+      \infer[sk\td\ccut]{S \mid \Gamma_{0} , \Gamma_{1} , \Gamma_{2} \vdash_{sk} C}{
+       \deduce{- \mid \Gamma_{1} \vdash_{sk} A}{}
+       &
+       \deduce{S \mid \Gamma_{0} , A , \Gamma_{1} \vdash_{sk} C}{}
+     }
+     \\
+     \infer[s\td sk \td\scut]{S_{s} \mid \Phi , \Gamma \vdash_{sk} C}{
+      \deduce{S_{s} \mid \Phi \vdash_{s} X}{}
+      &
+      \deduce{X \mid \Gamma \vdash_{sk} C}{}
+     }
+     \qquad
+     \infer[s\td sk\td\ccut]{S \mid \Gamma_{0} , \Phi , \Gamma_{1} \vdash_{sk} C}{
+      \deduce{- \mid \Phi \vdash_{s} X}{}
+      &
+      \deduce{S \mid \Gamma_{0} , X , \Gamma_{1} \vdash_{sk} C}{}
+     }
+   \end{array}
+ \end{displaymath}
+ \section*{Notes on Skew CNC}
+ We have to restrict left adjunction rule in stoup, otherwise the Skew CNC will not be cut-free.
+
+However, this feature gives us an image that if we want to go back to symm from skew, we have to organize it from the very beginning. That is to say, we have to dereliction every stoup formula and passviate it. Otherwise we cannot move to symm phase.
+
+I don’t know if this is a good feature or bad feature, I mean I don’t yet know if this restriction would let the categorical model be trivial or crazily invovled. But I guess it will be trivial.
+
+One more thing is that it seems we can arrange context in a fixed order if we plan to go back to the symm phase, but same, I don’t yet know what it means.
+
+Another thing is that $\gl_{ctx}$ is admissible but $\fl_{ctx}$ is not.
+The reason is that we cannot permute $sk\td\ex$ up, because after $\fl_{ctx}$, the sequent is not valid for $sk\td\ex$ application.
+\begin{displaymath}
+  \begin{array}{cc}
+    \infer[\fl_{ctx}]{S \mid \Gamma_{0} , Y , FX , \Gamma_{1} \vdash_{sk} C}{
+      \infer[sk\td\ex]{S \mid \Gamma_{0} , Y , X , \Gamma_{1} \vdash_{sk} C}{S \mid \Gamma_{0} , X , Y , \Gamma_{1} \vdash_{sk} C}
+    }
+  \end{array}
+  \qquad
+  =_{\mathsf{df}}
+  \qquad
+  ??
+\end{displaymath}
+It was like a one way ticket to be a skew symmetric formula in $sk$ phase. Once you go skew symmetric and passviated, you cannot go back.
+\subsection*{Motivation}
+We can compare different focusing strategy between adding exchange morphism directly and using LNL framework.
+Also this paper gives us a hint that LNL works in non-associative logics.
+\end{document}

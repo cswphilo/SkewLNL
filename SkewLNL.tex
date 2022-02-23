@@ -1,0 +1,396 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{prftree}
+\usepackage{ntheorem}
+\usepackage{tikz-cd}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{graphicx}
+%\usepackage{quiver}
+\usepackage[all,cmtip]{xy}
+\usepackage{proof}
+%\usepackage{bussproofs}
+%\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage{lscape}
+\theorembodyfont{}
+\newtheorem{theorem}{Theorem}[subsection]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{defn}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem*{proof}{Proof : }
+\newtheorem{fact}[theorem]{Fact}
+\newcommand{\ldbc}{[\![}
+\newcommand{\rdbc}{]\!]}
+\newcommand{\tbar}{[\vec{x}/\vec{t}]}
+\newcommand{\ltbar}{[\vec{x}, x/\vec{t}, x]}
+%%skew calculus macros
+\newcommand{\tl}{\otimes \mathsf{L}}
+\newcommand{\tr}{\otimes \mathsf{R}}
+\newcommand{\lright}{\multimap \mathsf{R}}
+\newcommand{\lleft}{\multimap \mathsf{L}}
+\newcommand{\pass}{\mathsf{pass}}
+\newcommand{\unitl}{\mathsf{IL}}
+\newcommand{\unitr}{\mathsf{IR}}
+\newcommand{\ax}{\mathsf{ax}}
+\newcommand{\ot}{\otimes}
+\newcommand{\lolli}{\multimap}
+\newcommand{\I}{\mathsf{I}}
+\newcommand{\msfL}{\mathsf{L}}
+\newcommand{\fl}{\mathsf{FL}}
+\newcommand{\gl}{\mathsf{GL}}
+\newcommand{\gr}{\mathsf{GR}}
+\newcommand{\fr}{\mathsf{FR}}
+\newcommand{\td}{\text{-}}
+\newcommand{\scut}{\mathsf{scut}}
+\newcommand{\ccut}{\mathsf{ccut}}
+%%skew calculus macros
+%%intuitionistic macros
+\newcommand{\oner}{1\mathsf{R}}
+\newcommand{\tms}{\times}
+\newcommand{\tmsr}{\times \mathsf{R}}
+\newcommand{\tmslf}{\times \mathsf{L}^{1}}
+\newcommand{\tmsls}{\times \mathsf{L}^{2}}
+\newcommand{\rar}{\rightarrow}
+\newcommand{\rarr}{\rightarrow \mathsf{R}}
+\newcommand{\rarl}{\rightarrow \mathsf{L}}
+\newcommand{\wk}{\mathsf{wk}}
+\newcommand{\ctr}{\mathsf{ctr}}
+\newcommand{\ex}{\mathsf{ex}}
+%%intuitionistic macros
+\begin{document}
+ \section*{Skew symmetric LNL (Cartesian and Skew symmetric monoidal)}
+ Formulae and context in skew symmetric LNL:
+ \begin{itemize}
+   \item Intuitionistic part: $X \mid 1 \mid X \tms Y \mid X \rar Y \mid GA$, contexts $\Phi$.
+   \item Skew part: $A \mid \I \mid A \ot B \mid A \lolli B \mid FX$, contexts $\Gamma$.
+   \item There is no stoup formula in intuitionistic part of LNL.
+   %\item $S_{s}$ denotes stoup formula in skew symmetric calculus.
+ \end{itemize}
+ Sequent calculus for intuitionistic part in LNL
+ \begin{displaymath}
+   \begin{array}{cc}
+     \infer[i\td\ax]{- \mid A \vdash_{i} A}{}
+     \qquad
+     \infer[i\td 1\mathsf{R}]{- \mid \quad \vdash_{i} 1}{}
+     \qquad
+     \infer[\tmslf]{- \mid A \tms B , \Phi \vdash_{i} Z}{- \mid A,  \Phi \vdash_{i} Z}
+     \qquad
+     \infer[\tmsls]{- \mid A \tms B , \Phi \vdash_{i} Z}{- \mid B,  \Phi \vdash_{i} Z}
+     \\
+     \infer[\tmsr]{- \mid \Phi_{0} , \Phi_{1} \vdash_{i} A \tms B}{
+      \deduce{- \mid \Phi_{0} \vdash_{i} X}{}
+      &
+      \deduce{- \mid \Phi_{1} \vdash_{i} Y}{}
+     }
+     \qquad
+     \infer[\rarl]{- \mid X \rar Y , \Phi_{0} , \Phi_{1} \vdash_{i} Z}{
+      \deduce{- \mid \Phi_{0} \vdash_{i} X}{}
+      &
+      \deduce{- \mid Y , \Phi_{1} \vdash_{i} Z}{}
+     }
+     \qquad
+     \infer[\rarr]{- \mid \Phi \vdash_{i} X \rar Y}{- \mid \Phi , X \vdash_{i} Y}
+   \end{array}
+ \end{displaymath}
+ Structural and adjunction rules\footnote{We do not need write out $\ex$ explicitly in LNL because formulae in context are always exchangeable. However, if we want to directly see adjunction between intuitionistic logic and skew non-comuutative linear logic, we have to write it explicitly.}
+ \begin{displaymath}
+   \begin{array}{cc}
+   \infer[i\td\wk]{- \mid X, \Phi \vdash_{i} Z}{- \mid \Phi \vdash_{i} Z}
+   \qquad
+   \infer[i\td\ctr]{- \mid X , \Phi \vdash_{i} Z}{- \mid X , X , \Phi \vdash_{i} Z}
+   \qquad
+   % \infer[i\td\ex]{- \mid \Phi , Y , X \vdash_{i} Z}{- \mid \Phi , X , Y \vdash_{i} Z}
+   % \qquad
+   \infer[\fr]{- \mid \Phi \vdash_{s} F X}{- \mid \Phi \vdash_{i} X}
+   \end{array}
+ \end{displaymath}
+ Sequent calculus for skew symmetric monoidal closed
+ \vspace{-0.15cm}
+  \begin{displaymath}
+  \begin{array}{cc}
+    \infer[s\td\ax]{A \mid \quad \vdash_{s} A}{}
+    \qquad
+    \infer[s\td\unitr]{- \mid \quad \vdash_{s} \I}{}
+    \qquad
+    \infer[s\td\unitl]{\I \mid \Gamma \vdash_{s} C}{- \mid \Gamma \vdash_{s} C}
+    \qquad
+    \infer[s\td\tl]{A \ot B \mid \Gamma \vdash_{s} C}{A \mid B , \Gamma \vdash_{s} C}
+    \\
+    \infer[s\td\pass]{- \mid A, \Gamma \vdash_{s} C}{A \mid \Gamma \vdash_{s} C}
+    \qquad
+    \infer[s\td\tr]{S_{s} \mid \Gamma_{0} , \Gamma_{1} \vdash_{s} A \ot B}{
+     \deduce{S_{s} \mid \Gamma_{0} \vdash_{s} A}{}
+     \qquad
+     \deduce{- \mid \Gamma_{1} \vdash_{s} B}{}
+    }
+    \qquad
+    \infer[s\td\lright]{S_{s} \mid \Gamma \vdash_{s} A \lolli B}{S_{s} \mid \Gamma , A \vdash_{s} B}
+    \\
+    \infer[s\td\lleft]{A \lolli B \mid \Gamma_{0} , \Gamma_{1} \vdash_{s} C}{
+     \deduce{- \mid \Gamma_{0} \vdash_{s} A}{}
+     \qquad
+     \deduce{B \mid \Gamma_{1} \vdash_{s} C}{}
+    }
+  \end{array}
+  \end{displaymath}
+  Intuitionistic rules in skew symmetric monoidal closed calculus
+  \begin{displaymath}
+    \begin{array}{cc}
+      \infer[s\td\tmslf]{X \tms Y \mid \Gamma , \Phi \vdash_{s} C}{X \mid \Gamma , \Phi \vdash_{s} C}
+      \qquad
+      \infer[s\td\tmsls]{X \tms Y \mid \Gamma , \Phi \vdash_{s} C}{Y \mid \Gamma , \Phi \vdash_{s} C}
+      \qquad
+      \infer[s\td\rarl]{X \rightarrow Y \mid \Gamma , \Phi \vdash_{s} C}{
+        \deduce{- \mid \Phi \vdash_{i} X}{}
+        &
+        \deduce{Y \mid \Gamma \vdash_{s} C}{}
+      }
+    \end{array}
+  \end{displaymath}
+  Structural and adjunction rules
+  \begin{displaymath}
+    \begin{array}{cc}
+      % \infer[s\td\ex]{S_{s} \mid \Gamma_{0} , B , A , \Gamma_{1} \vdash_{s} C}{S_{s} \mid \Gamma_{0} , A , B , \Gamma_{1} \vdash_{s} C}
+      \infer[s\td\wk]{S \mid  \Gamma , \Phi \vdash_{s} C}{S \mid \Gamma , X, \Phi \vdash_{s} C}
+      \qquad
+      \infer[s\td\ctr]{S \mid \Gamma , X, \Phi \vdash_{s} C}{S \mid \Gamma , X  ,X , \Phi \vdash_{s} C}
+      \\
+      \infer[\gl_{stp}]{GA \mid \Gamma , \Phi \vdash_{s} C}{A \mid \Gamma , \Phi \vdash_{s} C}
+      \qquad
+      \infer[\fl_{stp}]{FX \mid \Gamma , \Phi \vdash_{s} C}{X \mid \Gamma , \Phi \vdash_{s} C}
+      \qquad
+      \infer[\gr]{- \mid \Phi \vdash_{i} GA}{- \mid \Phi \vdash_{s} A}
+    \end{array}
+  \end{displaymath}
+  Admissible cut rules\footnote{We only have five cut rules here because it is impossible to have $\scut$ in intuitionistic logic (the stoup is always empty).}
+  \begin{displaymath}
+    \begin{array}{cc}
+      \infer[i\td\mathsf{cut}]{- \mid \Phi_{0} , \Phi_{1} , \Phi_{2} \vdash_{i} Z}{
+       \deduce{- \mid \Phi_{1} \vdash_{i} X}{}
+       &
+       \deduce{- \mid \Phi_{0} , X , \Phi_{2} \vdash_{i} Z}{}
+      }
+       \\
+       \infer[s\td\scut]{S \mid \Gamma_{0} , \Gamma_{1} \vdash_{s} C}{
+        \deduce{S \mid \Gamma_{0} \vdash_{s} A}{}
+        &
+        \deduce{A \mid \Gamma_{1} \vdash_{s} C}{}
+       }
+       \qquad
+       \infer[s\td\ccut]{S \mid \Gamma_{0} , \Gamma_{1} , \Gamma_{2} \vdash_{ss} C}{
+        \deduce{- \mid \Gamma_{1} \vdash_{s} A}{}
+        &
+        \deduce{S \mid \Gamma_{0} , A , \Gamma_{1} \vdash_{s} C}{}
+      }
+      \\
+      \infer[i\td s \td\scut]{- \mid \Phi , \Gamma \vdash_{s} C}{
+       \deduce{- \mid \Phi \vdash_{i} X}{}
+       &
+       \deduce{X \mid \Gamma \vdash_{s} C}{}
+      }
+      \qquad
+      \infer[i\td s\td\ccut]{S \mid \Gamma_{0} , \Phi , \Gamma_{1} \vdash_{s} C}{
+       \deduce{- \mid \Phi \vdash_{i} X}{}
+       &
+       \deduce{S \mid \Gamma_{0} , X , \Gamma_{1} \vdash_{s} C}{}
+      }
+    \end{array}
+  \end{displaymath}
+  \section*{Notes on Skew symmetric LNL (Cartesian and SkSMCC)}
+  \subsection*{Proof theory}
+  The proof system here is cut-free obviously, then the next step is to consider the soundness and completeness with adjunction model and also focusing strategy in LNL system.
+  Focusing for LNL is not yet developed thoroughly in literature, so I think it is a good opportunity to have a series of studies on different LNL logic and if we could, extend the method to adjoint logics.
+  For now I know, only two papers by K. Pruiksma (2018, 2021) about focused system for adjoint logic.\footnote{K. Pruiksma is a PhD student in the Department of Computer Science, Carnegie Mellon University}
+
+  \section*{Skew LNL (Cartesian and Skew monoidal)}
+  Formulae and context in skew LNL:
+  \begin{itemize}
+    \item Intuitionistic part: $X \mid 1 \mid X \times Y \mid X \rightarrow Y \mid GA$, contexts $\Phi$
+    \item Skew part: $A \mid \I \mid A \ot B \mid A \lolli B \mid FX$, contexts $\Gamma$. ($\Gamma$ is a mixed context containing Cartesian and non-Cartesian-formulae).
+    \item There is no stoup formula in intuitionistic part of LNL.
+  \end{itemize}
+  Sequent calculus for intuitionistic LNL
+  \begin{displaymath}
+    \begin{array}{cc}
+      \infer[i\td\ax]{- \mid A \vdash_{i} A}{}
+      \qquad
+      \infer[i\td 1\mathsf{R}]{- \mid \quad \vdash_{i} 1}{}
+      \qquad
+      \infer[\tmslf]{- \mid A \tms B , \Phi \vdash_{i} Z}{- \mid A,  \Phi \vdash_{i} Z}
+      \qquad
+      \infer[\tmsls]{- \mid A \tms B , \Phi \vdash_{i} Z}{- \mid B,  \Phi \vdash_{i} Z}
+      \\
+      \infer[\tmsr]{- \mid \Phi_{0} , \Phi_{1} \vdash_{i} A \tms B}{
+       \deduce{- \mid \Phi_{0} \vdash_{i} X}{}
+       &
+       \deduce{- \mid \Phi_{1} \vdash_{i} Y}{}
+      }
+      \qquad
+      \infer[\rarl]{- \mid X \rar Y , \Phi_{0} , \Phi_{1} \vdash_{i} Z}{
+       \deduce{- \mid \Phi_{0} \vdash_{i} X}{}
+       &
+       \deduce{- \mid Y , \Phi_{1} \vdash_{i} Z}{}
+      }
+      \qquad
+      \infer[\rarr]{- \mid \Phi \vdash_{i} X \rar Y}{- \mid \Phi , X \vdash_{i} Y}
+    \end{array}
+  \end{displaymath}
+  Structural and adjunction rules\footnote{We do not need write out $\ex$ explicitly in LNL because formulae in context are always exchangeable. However, if we want to directly see adjunction between intuitionistic logic and skew non-comuutative linear logic, we have to write it explicitly.}
+  \begin{displaymath}
+    \begin{array}{cc}
+    \infer[i\td\wk]{- \mid X, \Phi \vdash_{i} Z}{- \mid \Phi \vdash_{i} Z}
+    \qquad
+    \infer[i\td\ctr]{- \mid X , \Phi \vdash_{i} Z}{- \mid X , X , \Phi \vdash_{i} Z}
+    \qquad
+    % \infer[i\td\ex]{- \mid \Phi , Y , X \vdash_{i} Z}{- \mid \Phi , X , Y \vdash_{i} Z}
+    % \qquad
+    \infer[\fr]{- \mid \Phi \vdash_{s} F X}{- \mid \Phi \vdash_{i} X}
+    \end{array}
+  \end{displaymath}
+  Sequent calculus for skew monoidal closed
+  \vspace{-0.15cm}
+   \begin{displaymath}
+   \begin{array}{cc}
+     \infer[sk\td\ax]{A \mid \quad \vdash_{sk} A}{}
+     \qquad
+     \infer[sk\td\unitr]{- \mid \quad \vdash_{sk} \I}{}
+     \qquad
+     \infer[sk\td\unitl]{\I \mid \Gamma \vdash_{sk} C}{- \mid \Gamma \vdash_{sk} C}
+     \qquad
+     \infer[sk\td\tl]{A \ot B \mid \Gamma \vdash_{sk} C}{A \mid B , \Gamma \vdash_{sk} C}
+     \\
+     \infer[sk\td\pass]{- \mid A, \Gamma \vdash_{sk} C}{A \mid \Gamma \vdash_{sk} C}
+     \qquad
+     \infer[sk\td\tr]{S \mid \Gamma_{0} , \Gamma_{1} \vdash_{sk} A \ot B}{
+      \deduce{S_{s} \mid \Gamma_{0} \vdash_{sk} A}{}
+      \qquad
+      \deduce{- \mid \Gamma_{1} \vdash_{sk} B}{}
+     }
+     \qquad
+     \infer[sk\td\lright]{S \mid \Gamma \vdash_{sk} A \lolli B}{S \mid \Gamma , A \vdash_{sk} B}
+     \\
+     \infer[sk\td\lleft]{A \lolli B \mid \Gamma_{0} , \Gamma_{1} \vdash_{sk} C}{
+      \deduce{- \mid \Gamma_{0} \vdash_{sk} A}{}
+      \qquad
+      \deduce{B \mid \Gamma_{1} \vdash_{sk} C}{}
+     }
+   \end{array}
+   \end{displaymath}
+   Intuitionistic rules in skew monoidal closed calculus
+   \begin{displaymath}
+     \begin{array}{cc}
+       \infer[sk\td\tmslf]{X \tms Y \mid \Gamma \vdash_{sk} C}{X \mid \Gamma \vdash_{sk} C}
+       \qquad
+       \infer[sk\td\tmsls]{X \tms Y \mid \Gamma \vdash_{sk} C}{Y \mid \Gamma \vdash_{sk} C}
+       \qquad
+       \infer[sk\td\rarl]{X \rightarrow Y \mid \Phi , \Gamma \vdash_{sk} C}{
+         \deduce{- \mid \Phi \vdash_{i} X}{}
+         &
+         \deduce{Y \mid \Gamma \vdash_{sk} C}{}
+       }
+     \end{array}
+   \end{displaymath}
+   Structural and adjunction rules
+   \begin{displaymath}
+     \begin{array}{cc}
+        \infer[sk\td\ex]{S \mid \Gamma_{0} , Y , X , \Gamma_{1} \vdash_{sk} C}{S \mid \Gamma_{0} , X , Y , \Gamma_{1} \vdash_{sk} C}
+        \qquad
+        \infer[sk\td\wk]{S \mid  \Gamma_{0} , X , \Gamma_{1} \vdash_{sk} C}{S \mid \Gamma_{0} , \Gamma_{1} \vdash_{sk} C}
+        \qquad
+        \infer[sk\td\ctr]{S \mid \Gamma_{0} , X, \Gamma_{1}, \Gamma_{2} \vdash_{sk} C}{S \mid \Gamma_{0} , X , \Gamma_{1} ,X, \Gamma_{2} \vdash_{sk} C}
+        \\
+       \infer[\gl_{stp}]{GA \mid \Gamma \vdash_{sk} C}{A \mid \Gamma \vdash_{sk} C}
+       \qquad
+       \infer[\fl_{stp}]{FX \mid \Gamma \vdash_{sk} C}{X \mid \Gamma \vdash_{sk} C}
+       \qquad
+       \infer[\gr]{- \mid \Phi \vdash_{i} GA}{- \mid \Phi \vdash_{sk} A}
+     \end{array}
+   \end{displaymath}
+   Admissible cut rules\footnote{We only have five cut rules here because it is impossible to have $\scut$ in intuitionistic logic (the stoup is always empty).}
+   \begin{displaymath}
+     \begin{array}{cc}
+       \infer[i\td\mathsf{cut}]{- \mid \Phi_{0} , \Phi_{1} , \Phi_{2} \vdash_{i} Z}{
+        \deduce{- \mid \Phi_{1} \vdash_{i} X}{}
+        &
+        \deduce{- \mid \Phi_{0} , X , \Phi_{2} \vdash_{i} Z}{}
+       }
+        \\
+        \infer[sk\td\scut]{S \mid \Gamma_{0} , \Gamma_{1} \vdash_{sk} C}{
+         \deduce{S \mid \Gamma_{0} \vdash_{sk} A}{}
+         &
+         \deduce{A \mid \Gamma_{1} \vdash_{sk} C}{}
+        }
+        \qquad
+        \infer[sk\td\ccut]{S \mid \Gamma_{0} , \Gamma_{1} , \Gamma_{2} \vdash_{sk} C}{
+         \deduce{- \mid \Gamma_{1} \vdash_{sk} A}{}
+         &
+         \deduce{S \mid \Gamma_{0} , A , \Gamma_{1} \vdash_{sk} C}{}
+       }
+       \\
+       \infer[i\td sk \td\scut]{- \mid \Phi , \Gamma \vdash_{sk} C}{
+        \deduce{- \mid \Phi \vdash_{i} X}{}
+        &
+        \deduce{X \mid \Gamma \vdash_{sk} C}{}
+       }
+       \qquad
+       \infer[i\td sk\td\ccut]{S \mid \Gamma_{0} , \Phi , \Gamma_{1} \vdash_{sk} C}{
+        \deduce{- \mid \Phi \vdash_{i} X}{}
+        &
+        \deduce{S \mid \Gamma_{0} , X , \Gamma_{1} \vdash_{sk} C}{}
+       }
+     \end{array}
+   \end{displaymath}
+  \section*{Notes on Skew LNL (Cartesian and SkMCC)}
+  \subsection*{Proof theory}
+  If we have contraction in stoup in skew (symmetric) calculus
+  \begin{displaymath}
+    \infer[\mathsf{ctr}_{stp}]{X \mid \Gamma_{0} , \Gamma_{1} \vdash_{sk} C}{X \mid \Gamma_{0} , X, \Gamma_{1} \vdash_{sk} C}
+  \end{displaymath}
+  then we cannot prove the admissibility of $\ctr_{cxt}$
+  \begin{displaymath}
+    \infer[\ctr_{cxt}]{S \mid \Gamma_{0} , X , \Gamma_{1} , \Gamma_{2} \vdash_{sk} C}{S \mid \Gamma_{0} , X , \Gamma_{1} , X , \Gamma_{2} \vdash_{sk} C}
+  \end{displaymath}
+  We fail to prove it when the previous rule is a two-premises rule and contractum are in different premises.
+  Therefore, it seems like we cannot have strutural rules in stoup position, but I don't know if this makes sense.
+  We can observe that stoup in intuitionistic logic is always empty so it might be natural to think that structural rules can only active in context.
+
+  Context versions of $sk\td \tmslf$, $sk\td \tmsls$, and $sk\td\rarl$ are admissible.
+  \begin{displaymath}
+    \begin{array}{cc}
+      \infer[sk\td\tmslf_{cxt}]{S \mid \Gamma_{0} , X \tms Y , \Gamma_{1} \vdash_{sk} C}{S \mid \Gamma_{0} , X , \Gamma_{1} \vdash_{sk} C}
+      \qquad
+      \infer[sk\td\tmsls_{cxt}]{S \mid \Gamma_{0} , X \tms Y , \Gamma_{1} \vdash_{sk} C}{S \mid \Gamma_{0} , Y , \Gamma_{1} \vdash_{sk} C}
+      \\
+      \infer[sk\td\rarl_{cxt}]{S \mid \Phi , \Gamma_{0} , X \rar Y , \Gamma_{1} \vdash_{sk} C}{
+        \deduce{- \mid \Phi \vdash_{i} X}{}
+        &
+        \deduce{S \mid \Gamma_{0} , Y , \Gamma_{1} \vdash_{sk} C}{}
+      }
+    \end{array}
+  \end{displaymath}
+
+  \subsection*{Motivation}
+  Cartesian structure plays important role in semantics of logics, especially in interpreting structural rules.
+  For example, categorical model of intuitionistic logic is Cartesian closed category, and one categorical model of intuitionistic multipicative linear logic is linear category which is a symmetric monoidal closed category equipped with symmetric monoidal comonad and its coEilenberg-Xoore category is Cartesian.
+  In particular, diagonal morphism $\Delta : A \longrightarrow A\times A$ models contraction and $\tau_A : A \longrightarrow 1$ models weakening.
+  Cartesian structure itself is implicitly associative and symmetric, we can see classic proof of these statements in category theory textbooks.
+
+  In the last decade, skew monoidal categories come into discussion, and there are some studies using proof theoretical method to analyze categorical properties.
+  These proof systems are noncommutative intuitionistic multiplicative linear logic (NMILL, henceforth).
+  Beside noncommutative, they are non-associative.
+  The leftmost position in the antecedent of whole sequent is called stoup which can be empty.
+  We can passiviate stoup formula to context but cannont put it back from the other direction.
+
+  We already have a sequent calculus system NMILLs which has classic linear logic connectives $\ot , \lolli$, and $\I$.
+  It is natural to think about if we can add structural rules in NMILLs.
+  At the first, we choose to directly add structural rules such as dereiliction, promotion, weakening, and contraction.
+  However, we fail to prove the cut elimination due to lacking of associativity.
+  In particular, when we have left premise is $\tl$ and the right premise is promotion, lacking of associativity causes impossibility to permute $\tl$ down.
+  Surpisingly, LNL systax proposed by Benton et al. gives us a perfect solution.
+  In LNL framework, we can have a cut free sequent calculus system.
+  It shows that LNL framework provides a good environment to incorporate non-associative logic with Cartesian structures.
+\end{document}
